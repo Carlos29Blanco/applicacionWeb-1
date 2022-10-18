@@ -50,14 +50,14 @@ require([
 
     const layerBrotes = new GeoJSONLayer({
         url:
-            "https://raw.githubusercontent.com/influenzaAviar/applicacionWeb/main/GeoJSON/brotes.geojson",
+            "https://raw.githubusercontent.com/Carlos29Blanco/applicacionWeb-1/patch-5/GeoJSON/brotes.geojson",
 
         copyright: "INIA-CSIC",
         title: "Brotes",
         outFields: ['*'],
         visible: true,
         timeInfo: {
-            startField: "observationDate",
+            startField: "observationdate",
             interval: {
                 unit: "days",
                 value: 1
@@ -101,7 +101,7 @@ require([
             returnGeometry: true,
             fieldInfos: [
                 {
-                    fieldName: 'observationDate',
+                    fieldName: 'observationdate',
                     format: {
                         dateFormat: 'short-date'
                     }
@@ -119,7 +119,7 @@ require([
         graphic = feature.graphic;
         attributes = graphic.attributes;
 
-        var urlRutas = 'https://raw.githubusercontent.com/influenzaAviar/applicacionWeb/main/GeoJSON/rutas.geojson';
+        var urlRutas = 'https://raw.githubusercontent.com/influenzaAviar/applicacionWeb/main/GeoJSON/rutas2.geojson';
         // Se inicia la peticion ajax a la url ruta
         var request = new XMLHttpRequest();
         request.open("GET", urlRutas, false); // false for synchronous request
@@ -132,7 +132,7 @@ require([
         for (let index = 0; index < rutas.features.length; index++) {
             const element = rutas.features[index];
             console.log('element', element)
-            if (element.properties.idBrote == attributes.id) {
+            if (element.properties.idBrote == attributes.idBrote) {
                 var polyline = {
                     type: "polyline", // new Polyline()
                     paths: element.geometry.coordinates
@@ -163,7 +163,7 @@ require([
 
         content = "<p>Número de casos: <b>{cases}</b> " +
             "<ul><li>Localización: {city}, {country}.</li>" +
-            "<li>Fecha del informe: {observationDate}.</li>" +
+            "<li>Fecha del informe: {observationdate}.</li>" +
             "<li>Especie: {species}.</li>" +
             "<li>Serotipo: {serotipo}.</li>" +
             "<li>Más información: <a href='http://empres-i.fao.org/eipws3g/2/obd?idOutbreak={id}'> Enlace</a></li>";
@@ -178,7 +178,7 @@ require([
 
     var layerAlertas = new GeoJSONLayer({
         url:
-            "https://raw.githubusercontent.com/influenzaAviar/applicacionWeb/main/GeoJSON/alertas.geojson",
+            "https://raw.githubusercontent.com/Carlos29Blanco/applicacionWeb-1/main/GeoJSON/alertaAviar3857.geojson",
 
         copyright: "UCM",
         title: "Alertas",
@@ -317,7 +317,7 @@ require([
         graphic = feature.graphic;
         attributes = graphic.attributes;
 
-        var urlRutas = 'https://raw.githubusercontent.com/influenzaAviar/applicacionWeb/main/GeoJSON/rutas.geojson';
+        var urlRutas = 'https://raw.githubusercontent.com/influenzaAviar/applicacionWeb/main/GeoJSON/rutas2.geojson';
         // Se inicia la peticion ajax a la url ruta
         var request = new XMLHttpRequest();
         request.open("GET", urlRutas, false); // false for synchronous request
@@ -384,7 +384,7 @@ require([
 
     /// DEFINICIÓN DEL LOS RUTA MIGRATORIA
     const layerRutaM = new GeoJSONLayer({
-        url: "https://raw.githubusercontent.com/influenzaAviar/applicacionWeb/main/GeoJSON/rutas.geojson",
+        url: "https://raw.githubusercontent.com/influenzaAviar/applicacionWeb/main/GeoJSON/rutas2.geojson",
         copyright: "Influenza Aviar",
         title: "Rutas activadas por riesgo",
         outFields: ["*"],
@@ -722,8 +722,8 @@ require([
         const startBrotes = new Date();
         startBrotes.setHours(0, 0, 0, 0);
         startBrotes.setDate(startBrotes.getDate() + (7 - startBrotes.getDay() - 6));
-        startBrotes.setDate(startBrotes.getDate() - 455);
-
+        startBrotes.setDate(startBrotes.getDate() - 800);
+        //455
         const LastMonday = new Date();
         LastMonday.setHours(0, 0, 0, 0);
         LastMonday.setDate(LastMonday.getDate() + (7 - LastMonday.getDay() - 6));
@@ -743,7 +743,7 @@ require([
 
     timeSliderBrotes.watch("timeExtent", function () {
         layerBrotes.definitionExpression =
-            "observationDate <= " + timeSliderBrotes.timeExtent.end.getTime();
+            "observationdate <= " + timeSliderBrotes.timeExtent.end.getTime();
         layerViewBrotes.effect = {
             filter: {
                 timeExtent: timeSliderBrotes.timeExtent,
